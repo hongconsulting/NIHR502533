@@ -7,7 +7,7 @@
 <!-- badges: end -->
 
 Sample size simulator for DYNAMIC-IV cohort A. This version calls the
-original ‘BuyseTest’ package via the ‘Rcpp’ interface.’WH’ code is
+original ‘BuyseTest’ package via the ‘Rcpp’ interface. ‘WH’ code is
 otherwise designed to maximize speed, for use in simulation studies. As
 such, input validation is minimal and the user is responsible for
 ensuring valid use.
