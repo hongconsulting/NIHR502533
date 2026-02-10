@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# DYNAMIC.IV
+# NIHR502533
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -11,6 +11,9 @@ Sample size simulator for NIHR502533. This version calls the original
 is designed to maximize speed for use in simulation studies. As such,
 input validation is minimal and the user is responsible for ensuring
 valid use.
+
+Note that formal sample size calculations were performed using 100000
+replicates.
 
 ## Installation
 

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# DYNAMIC.IV
+# NIHR502533
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -27,6 +27,8 @@ You can install the development version of NIHR502533 from [GitHub](https://gith
 ``` r
 remotes::install_github("hongconsulting/NIHR502533")
 ```
+
+Note that formal sample size calculations were performed using 100000 replicates.
 
 ## Cohort A: single-threaded
 
