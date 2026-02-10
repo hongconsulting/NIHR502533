@@ -20,9 +20,9 @@
 double Rcpp_BuyseTest(const Eigen::MatrixXd& outcomes, const Eigen::VectorXd& arm) {
   static bool loaded = false;
   if (!loaded) {
-    Rcpp::Function suppressMessages("suppressMessages");
+    Rcpp::Function suppress("suppressPackageStartupMessages");
     Rcpp::Function library("library");
-    //suppressMessages(library("BuyseTest"));
+    suppress(library("BuyseTest"));
     loaded = true;
   }
   Rcpp::Environment env = Rcpp::Environment::namespace_env("BuyseTest");
