@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">NIHR502533</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">WH_NIHR502533b</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"scenario 1"</span>,</span>
-<span>  n_max <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>  n_target <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>  p_nullclear <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  p_arm0clear <span class="op">=</span> <span class="fl">0.35</span>,</span>
 <span>  t_surv <span class="op">=</span> <span class="fl">12</span>,</span>
@@ -55,8 +55,76 @@
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
-  </main></div>
+
+<dl><dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Scenario label. Default = <code>"scenario 1"</code>.</p></dd>
+
+
+<dt id="arg-n-target">n_target<a class="anchor" aria-label="anchor" href="#arg-n-target"></a></dt>
+<dd><p>Target sample size. Default = <code>19</code>.</p></dd>
+
+
+<dt id="arg-p-nullclear">p_nullclear<a class="anchor" aria-label="anchor" href="#arg-p-nullclear"></a></dt>
+<dd><p>Null hypothesis probability of clearance at <code>t_surv</code>
+months. Default = <code>0.1</code>.</p></dd>
+
+
+<dt id="arg-p-arm-clear">p_arm0clear<a class="anchor" aria-label="anchor" href="#arg-p-arm-clear"></a></dt>
+<dd><p>Expected probability of clearance under the alternative
+at <code>t_surv</code> months. Default = <code>0.35</code>.</p></dd>
+
+
+<dt id="arg-t-surv">t_surv<a class="anchor" aria-label="anchor" href="#arg-t-surv"></a></dt>
+<dd><p>Time in months when clearance is assessed. Default = <code>12</code>.</p></dd>
+
+
+<dt id="arg-p-ltfu">p_LTFU<a class="anchor" aria-label="anchor" href="#arg-p-ltfu"></a></dt>
+<dd><p>Average proportion lost to follow-up per <code>t_LTFU</code> months.
+Default = <code>0.15</code>.</p></dd>
+
+
+<dt id="arg-t-ltfu">t_LTFU<a class="anchor" aria-label="anchor" href="#arg-t-ltfu"></a></dt>
+<dd><p>Duration in months over which <code>p_LTFU</code> are lost to follow-up.
+Default = <code>60</code>.</p></dd>
+
+
+<dt id="arg-recrate">recrate<a class="anchor" aria-label="anchor" href="#arg-recrate"></a></dt>
+<dd><p>Average number of participants recruited per month. Default =
+<code>7.5</code>.</p></dd>
+
+
+<dt id="arg-t-recmax">t_recmax<a class="anchor" aria-label="anchor" href="#arg-t-recmax"></a></dt>
+<dd><p>Maximum recruitment duration in months. Default = <code>60</code>.</p></dd>
+
+
+<dt id="arg-t-add">t_add<a class="anchor" aria-label="anchor" href="#arg-t-add"></a></dt>
+<dd><p>Months of additional follow-up after recruitment closes.
+Default = <code>36</code>.</p></dd>
+
+
+<dt id="arg-t-max">t_max<a class="anchor" aria-label="anchor" href="#arg-t-max"></a></dt>
+<dd><p>Maximum trial duration in months. Default = <code>72</code>.</p></dd>
+
+
+<dt id="arg-reps">reps<a class="anchor" aria-label="anchor" href="#arg-reps"></a></dt>
+<dd><p>Number of simulation replicates. Default = <code>1e5</code>.</p></dd>
+
+
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
+<dd><p>Random seed. Default = <code>24601</code>.</p></dd>
+
+</dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A numeric vector with 3 elements: mean sample size, power, and mean
+trial duration in months.</p>
+    </div>
+
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

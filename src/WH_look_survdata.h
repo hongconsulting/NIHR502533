@@ -11,7 +11,7 @@
 // data look at interim dates
 WH_survdata WH_look_survdata(double date, WH_survdata input) { // VectorXd version
   if (!WH_is_nondecreasing(input.recdate)) {
-    std::cout << "[WH_look_survdata] recdate = " << input.recdate.transpose() << std::endl;
+    // std::cout << "[WH_look_survdata] recdate = " << input.recdate.transpose() << std::endl;
     throw std::invalid_argument("[WH_look_survdata] recdates must be non-decreasing");
   }
   WH_survdata output;

@@ -6,7 +6,7 @@
 \usage{
 WH_NIHR502533a(
   name = "scenario 1",
-  n_max = 204,
+  n_target = 204,
   p_arm0surv = 0.73,
   p_arm1surv = 0.7,
   t_surv = 36,
@@ -28,7 +28,7 @@ WH_NIHR502533a(
 \arguments{
 \item{name}{Scenario label. Default = \code{"scenario 1"}.}
 
-\item{n_max}{Maximum sample size. Default = \code{204}.}
+\item{n_target}{Target sample size. Default = \code{204}.}
 
 \item{p_arm0surv}{Control arm recurrence-free survival probability at \code{t_surv}
 months. Default = \code{0.73}.}

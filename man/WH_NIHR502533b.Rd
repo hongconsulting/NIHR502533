@@ -6,7 +6,7 @@
 \usage{
 WH_NIHR502533b(
   name = "scenario 1",
-  n_max = 19,
+  n_target = 19,
   p_nullclear = 0.1,
   p_arm0clear = 0.35,
   t_surv = 12,
@@ -19,6 +19,43 @@ WH_NIHR502533b(
   reps = 100000L,
   seed = 24601L
 )
+}
+\arguments{
+\item{name}{Scenario label. Default = \code{"scenario 1"}.}
+
+\item{n_target}{Target sample size. Default = \code{19}.}
+
+\item{p_nullclear}{Null hypothesis probability of clearance at \code{t_surv}
+months. Default = \code{0.1}.}
+
+\item{p_arm0clear}{Expected probability of clearance under the alternative
+at \code{t_surv} months. Default = \code{0.35}.}
+
+\item{t_surv}{Time in months when clearance is assessed. Default = \code{12}.}
+
+\item{p_LTFU}{Average proportion lost to follow-up per \code{t_LTFU} months.
+Default = \code{0.15}.}
+
+\item{t_LTFU}{Duration in months over which \code{p_LTFU} are lost to follow-up.
+Default = \code{60}.}
+
+\item{recrate}{Average number of participants recruited per month. Default =
+\code{7.5}.}
+
+\item{t_recmax}{Maximum recruitment duration in months. Default = \code{60}.}
+
+\item{t_add}{Months of additional follow-up after recruitment closes.
+Default = \code{36}.}
+
+\item{t_max}{Maximum trial duration in months. Default = \code{72}.}
+
+\item{reps}{Number of simulation replicates. Default = \code{1e5}.}
+
+\item{seed}{Random seed. Default = \code{24601}.}
+}
+\value{
+A numeric vector with 3 elements: mean sample size, power, and mean
+trial duration in months.
 }
 \description{
 Sample size simulator for NIHR502533 cohort B.

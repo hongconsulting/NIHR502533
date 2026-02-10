@@ -6,7 +6,7 @@
 #' Sample size simulator for NIHR502533 cohort A.
 #'
 #' @param name Scenario label. Default = `"scenario 1"`.
-#' @param n_max Maximum sample size. Default = `204`.
+#' @param n_target Target sample size. Default = `204`.
 #' @param p_arm0surv Control arm recurrence-free survival probability at `t_surv`
 #' months. Default = `0.73`.
 #' @param p_arm1surv Experimental arm recurrence-free survival probability at
@@ -35,23 +35,37 @@
 #' @return A numeric vector with 3 elements: mean sample size, power, and mean
 #' trial duration in months.
 #' @export
-WH_NIHR502533a <- function(name = "scenario 1", n_max = 204, p_arm0surv = 0.73, p_arm1surv = 0.70, t_surv = 36, p_arm0tox1 = 0.25, p_arm1tox1 = 0.1, p_arm0tox2 = 0.45, p_arm1tox2 = 0.05, p_LTFU = 0.1, t_LTFU = 60, recrate = 7.5, t_recmax = 60, t_add = 36, t_max = 72, reps = 1e5L, seed = 24601L, echo = TRUE) {
-    .Call(`_NIHR502533_WH_NIHR502533a`, name, n_max, p_arm0surv, p_arm1surv, t_surv, p_arm0tox1, p_arm1tox1, p_arm0tox2, p_arm1tox2, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed, echo)
+WH_NIHR502533a <- function(name = "scenario 1", n_target = 204, p_arm0surv = 0.73, p_arm1surv = 0.70, t_surv = 36, p_arm0tox1 = 0.25, p_arm1tox1 = 0.1, p_arm0tox2 = 0.45, p_arm1tox2 = 0.05, p_LTFU = 0.1, t_LTFU = 60, recrate = 7.5, t_recmax = 60, t_add = 36, t_max = 72, reps = 1e5L, seed = 24601L, echo = TRUE) {
+    .Call(`_NIHR502533_WH_NIHR502533a`, name, n_target, p_arm0surv, p_arm1surv, t_surv, p_arm0tox1, p_arm1tox1, p_arm0tox2, p_arm1tox2, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed, echo)
 }
 
 #' NIHR502533 cohort B
 #'
 #' Sample size simulator for NIHR502533 cohort B.
+#'
+#' @param name Scenario label. Default = `"scenario 1"`.
+#' @param n_target Target sample size. Default = `19`.
+#' @param p_nullclear Null hypothesis probability of clearance at `t_surv`
+#' months. Default = `0.1`.
+#' @param p_arm0clear Expected probability of clearance under the alternative
+#' at `t_surv` months. Default = `0.35`.
+#' @param t_surv Time in months when clearance is assessed. Default = `12`.
+#' @param p_LTFU Average proportion lost to follow-up per `t_LTFU` months.
+#' Default = `0.15`.
+#' @param t_LTFU Duration in months over which `p_LTFU` are lost to follow-up.
+#' Default = `60`.
+#' @param recrate Average number of participants recruited per month. Default =
+#' `7.5`.
+#' @param t_recmax Maximum recruitment duration in months. Default = `60`.
+#' @param t_add Months of additional follow-up after recruitment closes.
+#' Default = `36`.
+#' @param t_max Maximum trial duration in months. Default = `72`.
+#' @param reps Number of simulation replicates. Default = `1e5`.
+#' @param seed Random seed. Default = `24601`.
+#' @return A numeric vector with 3 elements: mean sample size, power, and mean
+#' trial duration in months.
 #' @export
-WH_NIHR502533b <- function(name = "scenario 1", n_max = 19, p_nullclear = 0.1, p_arm0clear = 0.35, t_surv = 12, p_LTFU = 0.15, t_LTFU = 60, recrate = 7.5, t_recmax = 60, t_add = 36, t_max = 72, reps = 1e5L, seed = 24601L) {
-    .Call(`_NIHR502533_WH_NIHR502533b`, name, n_max, p_nullclear, p_arm0clear, t_surv, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed)
-}
-
-WH_expected_survival <- function(survtime, lambda) {
-    .Call(`_NIHR502533_WH_expected_survival`, survtime, lambda)
-}
-
-WH_logrank_1sample <- function(time, status, h, one_sided = FALSE) {
-    .Call(`_NIHR502533_WH_logrank_1sample`, time, status, h, one_sided)
+WH_NIHR502533b <- function(name = "scenario 1", n_target = 19, p_nullclear = 0.1, p_arm0clear = 0.35, t_surv = 12, p_LTFU = 0.15, t_LTFU = 60, recrate = 7.5, t_recmax = 60, t_add = 36, t_max = 72, reps = 1e5L, seed = 24601L) {
+    .Call(`_NIHR502533_WH_NIHR502533b`, name, n_target, p_nullclear, p_arm0clear, t_surv, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed)
 }
 

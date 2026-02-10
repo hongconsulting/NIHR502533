@@ -1,6 +1,6 @@
 Package: NIHR502533
 Title: NIHR502533
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: 
     person("Wei", "Hong", , "wei.hong@hongconsulting.ai", role = c("aut", "cre"))
 Description: Sample size simulator for NIHR502533​. This version calls the 
@@ -8,7 +8,7 @@ Description: Sample size simulator for NIHR502533​. This version calls the
 	code is  designed to maximize speed, for use in simulation studies. As such, 
 	input validation is minimal and the user is responsible for ensuring valid 
 	use.
-License: GPL (>= 3)
+License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

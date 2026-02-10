@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">NIHR502533</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,18 +60,18 @@
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"hongconsulting/NIHR502533"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="cohort-a-single-threaded">Cohort A: single-threaded<a class="anchor" aria-label="anchor" href="#cohort-a-single-threaded"></a>
+<h2 id="example-cohort-a-single-threaded">Example: Cohort A (single-threaded)<a class="anchor" aria-label="anchor" href="#example-cohort-a-single-threaded"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hongconsulting/NIHR502533/" class="external-link">NIHR502533</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/WH_NIHR502533a.html">WH_NIHR502533a</a></span><span class="op">(</span>n_max <span class="op">=</span> <span class="fl">204</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/WH_NIHR502533a.html">WH_NIHR502533a</a></span><span class="op">(</span>n_target <span class="op">=</span> <span class="fl">204</span>,</span>
 <span>                    p_arm0surv <span class="op">=</span> <span class="fl">0.73</span>, p_arm1surv <span class="op">=</span> <span class="fl">0.70</span>,</span>
 <span>                    p_arm0tox1 <span class="op">=</span> <span class="fl">0.25</span>, p_arm1tox1 <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>                    p_arm0tox2 <span class="op">=</span> <span class="fl">0.45</span>, p_arm1tox2 <span class="op">=</span> <span class="fl">0.05</span>, p_LTFU <span class="op">=</span> <span class="fl">0.1</span>, </span>
 <span>                    recrate <span class="op">=</span> <span class="fl">7.5</span>, reps <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; NIHR502533 cohort A: scenario 1</span></span>
-<span><span class="co">#&gt;  - N = 204</span></span>
+<span><span class="co">#&gt;  - Target N = 204</span></span>
 <span><span class="co">#&gt;  - RFS at 3 years = 73% vs 70%</span></span>
 <span><span class="co">#&gt;  - Tox 1 = 25% vs 10%</span></span>
 <span><span class="co">#&gt;  - Tox 2 = 45% vs 5%</span></span>
@@ -87,7 +87,7 @@
 <span><span class="co">#&gt; [1] 193.38000   0.79000   5.27186</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="cohort-a-chunked-parallel">Cohort A: chunked parallel<a class="anchor" aria-label="anchor" href="#cohort-a-chunked-parallel"></a>
+<h2 id="example-cohort-a-chunk-parallelized">Example: Cohort A (chunk parallelized)<a class="anchor" aria-label="anchor" href="#example-cohort-a-chunk-parallelized"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hongconsulting/NIHR502533/" class="external-link">NIHR502533</a></span><span class="op">)</span></span>
@@ -100,7 +100,7 @@
 <span><span class="va">seeds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">chunk_reps</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply</a></span><span class="op">(</span><span class="va">seeds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="reference/WH_NIHR502533a.html">WH_NIHR502533a</a></span><span class="op">(</span>n_max <span class="op">=</span> <span class="fl">204</span>,</span>
+<span>  <span class="fu"><a href="reference/WH_NIHR502533a.html">WH_NIHR502533a</a></span><span class="op">(</span>n_target <span class="op">=</span> <span class="fl">204</span>,</span>
 <span>                p_arm0surv <span class="op">=</span> <span class="fl">0.73</span>, p_arm1surv <span class="op">=</span> <span class="fl">0.70</span>,</span>
 <span>                p_arm0tox1 <span class="op">=</span> <span class="fl">0.25</span>, p_arm1tox1 <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>                p_arm0tox2 <span class="op">=</span> <span class="fl">0.45</span>, p_arm1tox2 <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -111,13 +111,24 @@
 <span><span class="co">#&gt; [1] 193.328000   0.830000   5.271666</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="cohort-b">Cohort B:<a class="anchor" aria-label="anchor" href="#cohort-b"></a>
+<h2 id="example-cohort-b">Example: Cohort B<a class="anchor" aria-label="anchor" href="#example-cohort-b"></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hongconsulting/NIHR502533/" class="external-link">NIHR502533</a></span><span class="op">)</span></span>
-<span><span class="co"># print(WH_NIHR502533b(n_max = 19, </span></span>
-<span><span class="co">#                p_arm0clear = 0.34, </span></span>
-<span><span class="co">#                p_LTFU = 0.15, recrate = 7.5, reps = 1e5))</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/WH_NIHR502533b.html">WH_NIHR502533b</a></span><span class="op">(</span>n_target <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>                     p_nullclear <span class="op">=</span> <span class="fl">0.1</span>, p_arm0clear <span class="op">=</span> <span class="fl">0.34</span>,</span>
+<span>                     p_LTFU <span class="op">=</span> <span class="fl">0.15</span>, recrate <span class="op">=</span> <span class="fl">7.5</span>, reps <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NIHR502533 cohort B: scenario 1</span></span>
+<span><span class="co">#&gt;  - Target N = 19</span></span>
+<span><span class="co">#&gt;  - Clearance at 1 years = 34%</span></span>
+<span><span class="co">#&gt;  - Average recruitment = 7.5/month</span></span>
+<span><span class="co">#&gt;  - Loss to follow-up = 15% every 5 years</span></span>
+<span><span class="co">#&gt;  - Recruitment duration = up to 5 years</span></span>
+<span><span class="co">#&gt;  - Max duration = 3 years after the last recruitment, up to 6 years</span></span>
+<span><span class="co">#&gt;  - Average N = 18.50</span></span>
+<span><span class="co">#&gt;  - Power = 81.62%</span></span>
+<span><span class="co">#&gt;  - Average duration = 3.21 years</span></span>
+<span><span class="co">#&gt; [1] 18.500900  0.816180  3.212489</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -132,7 +143,7 @@
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small>GPL (&gt;= 3)</small></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></small></li>
 </ul>
 </div>
 

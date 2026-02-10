@@ -2,11 +2,12 @@
 
 #include <string>
 #include "WH_analyse_fixedt_summary.h"
+#include "WH_binom_test.h"
 #include "WH_concat.h"
 #include "WH_constexpr.h"
 #include "WH_distr_Bernoulli.h"
 #include "WH_gen_survdataset.h"
-#include "WH_logrank_1sample.h"
+// #include "WH_logrank_1sample.h"
 #include "WH_look_survdata.h"
 #include "WH_replicate.h"
 #include "WH_string_f.h"
@@ -54,7 +55,7 @@ double Rcpp_BuyseTest(const Eigen::MatrixXd& outcomes, const Eigen::VectorXd& ar
   return std::stod(p.get_cstring());
 }
 
-Eigen::VectorXd WH_NIHR502533a_sim(const double n_max = 250,
+Eigen::VectorXd WH_NIHR502533a_sim(const double n_target = 250,
                                       const double p_arm0surv = 0.73, const double p_arm1surv = 0.70, const double t_surv = 36,
                                       const double p_arm0tox1 = 0.24, const double p_arm1tox1 = 0.1,
                                       const double p_arm0tox2 = 0.45, const double p_arm1tox2 = 0.05,
@@ -72,7 +73,7 @@ Eigen::VectorXd WH_NIHR502533a_sim(const double n_max = 250,
   Eigen::Vector2i rand_block(0, 1);
   Eigen::VectorXd rand_weight = Eigen::VectorXd::Zero(1);
 
-  WH_survdata survdata = WH_gen_survdataset(lambda, lambda_rec, lambda_LTFU, n_max, rand_block, rand_weight, t_recmax_d, t_max_d);
+  WH_survdata survdata = WH_gen_survdataset(lambda, lambda_rec, lambda_LTFU, n_target, rand_block, rand_weight, t_recmax_d, t_max_d);
   double t_newmax_d = std::min(survdata.recdate.maxCoeff() + t_add_d, t_max_d);
 
   WH_survdata look = WH_look_survdata(t_newmax_d, survdata);
@@ -132,7 +133,7 @@ Eigen::VectorXd WH_NIHR502533a_sim(const double n_max = 250,
 //' Sample size simulator for NIHR502533 cohort A.
 //'
 //' @param name Scenario label. Default = `"scenario 1"`.
-//' @param n_max Maximum sample size. Default = `204`.
+//' @param n_target Target sample size. Default = `204`.
 //' @param p_arm0surv Control arm recurrence-free survival probability at `t_surv`
 //' months. Default = `0.73`.
 //' @param p_arm1surv Experimental arm recurrence-free survival probability at
@@ -162,7 +163,7 @@ Eigen::VectorXd WH_NIHR502533a_sim(const double n_max = 250,
 //' trial duration in months.
 //' @export
 // [[Rcpp::export]]
-Eigen::VectorXd WH_NIHR502533a(std::string name = "scenario 1", double n_max = 204,
+Eigen::VectorXd WH_NIHR502533a(std::string name = "scenario 1", double n_target = 204,
                               double p_arm0surv = 0.73, double p_arm1surv = 0.70,
                               double t_surv = 36,
                               double p_arm0tox1 = 0.25, double p_arm1tox1 = 0.1,
@@ -176,7 +177,7 @@ Eigen::VectorXd WH_NIHR502533a(std::string name = "scenario 1", double n_max = 2
   // omp_set_num_threads(n_thread);
   // int chunksize = reps / n_thread;
   if (echo) {
-    Rcpp::Rcout << "NIHR502533 cohort A: " << name << "\n" << " - N = " << n_max << "\n";
+    Rcpp::Rcout << "NIHR502533 cohort A: " << name << "\n" << " - Target N = " << n_target << "\n";
     Rcpp::Rcout << " - RFS at " << t_surv/12 << " years = " << 100 * p_arm0surv << "% vs " << 100 * p_arm1surv << "%" << "\n";
     Rcpp::Rcout << " - Tox 1 = " << 100 * p_arm0tox1 << "% vs " << 100 * p_arm1tox1 << "%" << "\n";
     Rcpp::Rcout << " - Tox 2 = " << 100 * p_arm0tox2 << "% vs " << 100 * p_arm1tox2 << "%" << "\n";
@@ -187,7 +188,7 @@ Eigen::VectorXd WH_NIHR502533a(std::string name = "scenario 1", double n_max = 2
   }
   // std::cout << " *** Simulation of " << WH_string_SI(reps, 1) << " trials (chunked parallel: " << n_thread << " threads) ***" << "\n";
   // #pragma omp parallel num_threads(n_thread)
-  //  {
+  // {
   // WH_RNG.seed(seed + omp_get_thread_num());
   WH_RNG.seed(seed);
   // int i_thread = omp_get_thread_num();
@@ -196,7 +197,7 @@ Eigen::VectorXd WH_NIHR502533a(std::string name = "scenario 1", double n_max = 2
   // int i_end = (i_thread == n_thread - 1) ? reps : (i_start + chunksize); // last thread takes leftovers
   int i_end = reps;
   for (int i = i_start; i < i_end; i++) {
-    sims.row(i) = WH_NIHR502533a_sim(n_max, p_arm0surv, p_arm1surv, t_surv, p_arm0tox1, p_arm1tox1, p_arm0tox2, p_arm1tox2, p_LTFU,
+    sims.row(i) = WH_NIHR502533a_sim(n_target, p_arm0surv, p_arm1surv, t_surv, p_arm0tox1, p_arm1tox1, p_arm0tox2, p_arm1tox2, p_LTFU,
              t_LTFU, recrate, t_recmax, t_add, t_max);
   }
   // }
@@ -226,7 +227,7 @@ Eigen::VectorXd WH_NIHR502533a(std::string name = "scenario 1", double n_max = 2
   return output;
 }
 
-Eigen::VectorXd WH_NIHR502533b_sim(const double n_max = 19,
+Eigen::VectorXd WH_NIHR502533b_sim(const double n_target = 19,
                                           const double p_nullclear = 0.1,
                                           const double p_arm0clear = 0.35,
                                           const double t_surv = 12,
@@ -249,7 +250,7 @@ Eigen::VectorXd WH_NIHR502533b_sim(const double n_max = 19,
   Eigen::VectorXi rand_block = Eigen::VectorXi::Zero(1);
   Eigen::VectorXd rand_weight = Eigen::VectorXd::Zero(1);
 
-  WH_survdata survdata = WH_gen_survdataset(lambda, lambda_rec, lambda_LTFU, n_max, rand_block, rand_weight, t_recmax_d, t_max_d);
+  WH_survdata survdata = WH_gen_survdataset(lambda, lambda_rec, lambda_LTFU, n_target, rand_block, rand_weight, t_recmax_d, t_max_d);
   double t_newmax_d = std::min(survdata.recdate.maxCoeff() + t_add_d, t_max_d);
 
   WH_survdata look = WH_look_survdata(t_newmax_d, survdata);
@@ -267,7 +268,7 @@ Eigen::VectorXd WH_NIHR502533b_sim(const double n_max = 19,
   // output[4] = t_newmax_d/365.2425;
   Eigen::VectorXd output(3);
   output[0] = n_arm0;
-  output[1] = WH_logrank_1sample(look.survtime, look.survstatus, lambda_null[0]);
+  output[1] = WH_binom_test(n_arm0survive, n_arm0, p_nullsurv);
   output[2] = t_newmax_d/365.2425;
   return output;
 }
@@ -275,21 +276,43 @@ Eigen::VectorXd WH_NIHR502533b_sim(const double n_max = 19,
 //' NIHR502533 cohort B
 //'
 //' Sample size simulator for NIHR502533 cohort B.
+//'
+//' @param name Scenario label. Default = `"scenario 1"`.
+//' @param n_target Target sample size. Default = `19`.
+//' @param p_nullclear Null hypothesis probability of clearance at `t_surv`
+//' months. Default = `0.1`.
+//' @param p_arm0clear Expected probability of clearance under the alternative
+//' at `t_surv` months. Default = `0.35`.
+//' @param t_surv Time in months when clearance is assessed. Default = `12`.
+//' @param p_LTFU Average proportion lost to follow-up per `t_LTFU` months.
+//' Default = `0.15`.
+//' @param t_LTFU Duration in months over which `p_LTFU` are lost to follow-up.
+//' Default = `60`.
+//' @param recrate Average number of participants recruited per month. Default =
+//' `7.5`.
+//' @param t_recmax Maximum recruitment duration in months. Default = `60`.
+//' @param t_add Months of additional follow-up after recruitment closes.
+//' Default = `36`.
+//' @param t_max Maximum trial duration in months. Default = `72`.
+//' @param reps Number of simulation replicates. Default = `1e5`.
+//' @param seed Random seed. Default = `24601`.
+//' @return A numeric vector with 3 elements: mean sample size, power, and mean
+//' trial duration in months.
 //' @export
 // [[Rcpp::export]]
 Eigen::VectorXd WH_NIHR502533b(std::string name = "scenario 1",
-                                      double n_max = 19,
+                                      double n_target = 19,
                                       const double p_nullclear = 0.1,
                                       const double p_arm0clear = 0.35,
                                       double t_surv = 12,
                                       const double p_LTFU = 0.15, const double t_LTFU = 60,
                                       const double recrate = 7.5, const double t_recmax = 60,
                                       double t_add = 36, double t_max = 72, int reps = 1e5, int seed = 24601) {
-  Eigen::MatrixXd sims = Eigen::MatrixXd(reps, 5);
+  Eigen::MatrixXd sims = Eigen::MatrixXd(reps, 3);
   // int n_thread = omp_get_max_threads();
   // omp_set_num_threads(n_thread);
   // int chunksize = reps / n_thread;
-  Rcpp::Rcout << "NIHR502533 cohort B: " << name << std::endl << " - N = " << n_max << std::endl;
+  Rcpp::Rcout << "NIHR502533 cohort B: " << name << std::endl << " - Target N = " << n_target << std::endl;
   Rcpp::Rcout << " - Clearance at " << t_surv/12 << " years = " << 100 * p_arm0clear << "%" << std::endl;
   Rcpp::Rcout << " - Average recruitment = " << recrate << "/month" << std::endl;
   Rcpp::Rcout << " - Loss to follow-up = " << 100 * p_LTFU << "% every " << t_LTFU/12 << " years" << std::endl;
@@ -306,7 +329,7 @@ Eigen::VectorXd WH_NIHR502533b(std::string name = "scenario 1",
   //int i_end = (i_thread == n_thread - 1) ? reps : (i_start + chunksize); // last thread takes leftovers
   int i_end = reps;
   for (int i = i_start; i < i_end; i++) {
-    sims.row(i) = WH_NIHR502533b_sim(n_max, p_nullclear, p_arm0clear, t_surv,
+    sims.row(i) = WH_NIHR502533b_sim(n_target, p_nullclear, p_arm0clear, t_surv,
              p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max);
   }
   // }
@@ -323,6 +346,5 @@ Eigen::VectorXd WH_NIHR502533b(std::string name = "scenario 1",
   Rcpp::Rcout << " - Average N = " << WH_string_f(output[0]) << std::endl;
   Rcpp::Rcout << " - Power = " << WH_string_f(100 * output[1]) << "%" << std::endl;
   Rcpp::Rcout << " - Average duration = " << WH_string_f(output[2]) << " years" << std::endl;
-  // std::cout << " - power (binom) = " << WH_string_f(100 * output[3]) << "%" << std::endl << std::endl;
   return output;
 }

@@ -12,13 +12,13 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // WH_NIHR502533a
-Eigen::VectorXd WH_NIHR502533a(std::string name, double n_max, double p_arm0surv, double p_arm1surv, double t_surv, double p_arm0tox1, double p_arm1tox1, double p_arm0tox2, double p_arm1tox2, double p_LTFU, double t_LTFU, double recrate, double t_recmax, double t_add, double t_max, int reps, int seed, bool echo);
-RcppExport SEXP _NIHR502533_WH_NIHR502533a(SEXP nameSEXP, SEXP n_maxSEXP, SEXP p_arm0survSEXP, SEXP p_arm1survSEXP, SEXP t_survSEXP, SEXP p_arm0tox1SEXP, SEXP p_arm1tox1SEXP, SEXP p_arm0tox2SEXP, SEXP p_arm1tox2SEXP, SEXP p_LTFUSEXP, SEXP t_LTFUSEXP, SEXP recrateSEXP, SEXP t_recmaxSEXP, SEXP t_addSEXP, SEXP t_maxSEXP, SEXP repsSEXP, SEXP seedSEXP, SEXP echoSEXP) {
+Eigen::VectorXd WH_NIHR502533a(std::string name, double n_target, double p_arm0surv, double p_arm1surv, double t_surv, double p_arm0tox1, double p_arm1tox1, double p_arm0tox2, double p_arm1tox2, double p_LTFU, double t_LTFU, double recrate, double t_recmax, double t_add, double t_max, int reps, int seed, bool echo);
+RcppExport SEXP _NIHR502533_WH_NIHR502533a(SEXP nameSEXP, SEXP n_targetSEXP, SEXP p_arm0survSEXP, SEXP p_arm1survSEXP, SEXP t_survSEXP, SEXP p_arm0tox1SEXP, SEXP p_arm1tox1SEXP, SEXP p_arm0tox2SEXP, SEXP p_arm1tox2SEXP, SEXP p_LTFUSEXP, SEXP t_LTFUSEXP, SEXP recrateSEXP, SEXP t_recmaxSEXP, SEXP t_addSEXP, SEXP t_maxSEXP, SEXP repsSEXP, SEXP seedSEXP, SEXP echoSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< double >::type n_max(n_maxSEXP);
+    Rcpp::traits::input_parameter< double >::type n_target(n_targetSEXP);
     Rcpp::traits::input_parameter< double >::type p_arm0surv(p_arm0survSEXP);
     Rcpp::traits::input_parameter< double >::type p_arm1surv(p_arm1survSEXP);
     Rcpp::traits::input_parameter< double >::type t_surv(t_survSEXP);
@@ -35,18 +35,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type reps(repsSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
     Rcpp::traits::input_parameter< bool >::type echo(echoSEXP);
-    rcpp_result_gen = Rcpp::wrap(WH_NIHR502533a(name, n_max, p_arm0surv, p_arm1surv, t_surv, p_arm0tox1, p_arm1tox1, p_arm0tox2, p_arm1tox2, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed, echo));
+    rcpp_result_gen = Rcpp::wrap(WH_NIHR502533a(name, n_target, p_arm0surv, p_arm1surv, t_surv, p_arm0tox1, p_arm1tox1, p_arm0tox2, p_arm1tox2, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed, echo));
     return rcpp_result_gen;
 END_RCPP
 }
 // WH_NIHR502533b
-Eigen::VectorXd WH_NIHR502533b(std::string name, double n_max, const double p_nullclear, const double p_arm0clear, double t_surv, const double p_LTFU, const double t_LTFU, const double recrate, const double t_recmax, double t_add, double t_max, int reps, int seed);
-RcppExport SEXP _NIHR502533_WH_NIHR502533b(SEXP nameSEXP, SEXP n_maxSEXP, SEXP p_nullclearSEXP, SEXP p_arm0clearSEXP, SEXP t_survSEXP, SEXP p_LTFUSEXP, SEXP t_LTFUSEXP, SEXP recrateSEXP, SEXP t_recmaxSEXP, SEXP t_addSEXP, SEXP t_maxSEXP, SEXP repsSEXP, SEXP seedSEXP) {
+Eigen::VectorXd WH_NIHR502533b(std::string name, double n_target, const double p_nullclear, const double p_arm0clear, double t_surv, const double p_LTFU, const double t_LTFU, const double recrate, const double t_recmax, double t_add, double t_max, int reps, int seed);
+RcppExport SEXP _NIHR502533_WH_NIHR502533b(SEXP nameSEXP, SEXP n_targetSEXP, SEXP p_nullclearSEXP, SEXP p_arm0clearSEXP, SEXP t_survSEXP, SEXP p_LTFUSEXP, SEXP t_LTFUSEXP, SEXP recrateSEXP, SEXP t_recmaxSEXP, SEXP t_addSEXP, SEXP t_maxSEXP, SEXP repsSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< double >::type n_max(n_maxSEXP);
+    Rcpp::traits::input_parameter< double >::type n_target(n_targetSEXP);
     Rcpp::traits::input_parameter< const double >::type p_nullclear(p_nullclearSEXP);
     Rcpp::traits::input_parameter< const double >::type p_arm0clear(p_arm0clearSEXP);
     Rcpp::traits::input_parameter< double >::type t_surv(t_survSEXP);
@@ -58,33 +58,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type t_max(t_maxSEXP);
     Rcpp::traits::input_parameter< int >::type reps(repsSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(WH_NIHR502533b(name, n_max, p_nullclear, p_arm0clear, t_surv, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed));
-    return rcpp_result_gen;
-END_RCPP
-}
-// WH_expected_survival
-Eigen::VectorXd WH_expected_survival(const Eigen::VectorXd& survtime, double lambda);
-RcppExport SEXP _NIHR502533_WH_expected_survival(SEXP survtimeSEXP, SEXP lambdaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type survtime(survtimeSEXP);
-    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(WH_expected_survival(survtime, lambda));
-    return rcpp_result_gen;
-END_RCPP
-}
-// WH_logrank_1sample
-double WH_logrank_1sample(Eigen::VectorXd time, Eigen::VectorXd status, double h, bool one_sided);
-RcppExport SEXP _NIHR502533_WH_logrank_1sample(SEXP timeSEXP, SEXP statusSEXP, SEXP hSEXP, SEXP one_sidedSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type time(timeSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type status(statusSEXP);
-    Rcpp::traits::input_parameter< double >::type h(hSEXP);
-    Rcpp::traits::input_parameter< bool >::type one_sided(one_sidedSEXP);
-    rcpp_result_gen = Rcpp::wrap(WH_logrank_1sample(time, status, h, one_sided));
+    rcpp_result_gen = Rcpp::wrap(WH_NIHR502533b(name, n_target, p_nullclear, p_arm0clear, t_surv, p_LTFU, t_LTFU, recrate, t_recmax, t_add, t_max, reps, seed));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -92,8 +66,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_NIHR502533_WH_NIHR502533a", (DL_FUNC) &_NIHR502533_WH_NIHR502533a, 18},
     {"_NIHR502533_WH_NIHR502533b", (DL_FUNC) &_NIHR502533_WH_NIHR502533b, 13},
-    {"_NIHR502533_WH_expected_survival", (DL_FUNC) &_NIHR502533_WH_expected_survival, 2},
-    {"_NIHR502533_WH_logrank_1sample", (DL_FUNC) &_NIHR502533_WH_logrank_1sample, 4},
     {NULL, NULL, 0}
 };
 
