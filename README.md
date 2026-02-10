@@ -6,32 +6,32 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-Sample size simulator for DYNAMIC-IV cohort A. This version calls the
-original ‘BuyseTest’ package via the ‘Rcpp’ interface. ‘WH’ code is
-otherwise designed to maximize speed, for use in simulation studies. As
-such, input validation is minimal and the user is responsible for
-ensuring valid use.
+Sample size simulator for NIHR502533. This version calls the original
+‘BuyseTest’ package via the ‘Rcpp’ interface. The surrounding ‘WH’ code
+is designed to maximize speed for use in simulation studies. As such,
+input validation is minimal and the user is responsible for ensuring
+valid use.
 
 ## Installation
 
-You can install the development version of DYNAMIC.IV from
-[GitHub](https://github.com/hongconsulting/DYNAMIC.IV) with:
+You can install the development version of NIHR502533 from
+[GitHub](https://github.com/hongconsulting/NIHR502533) with:
 
 ``` r
-remotes::install_github("hongconsulting/DYNAMIC.IV")
+remotes::install_github("hongconsulting/NIHR502533")
 ```
 
-## Example: single-threaded
+## Cohort A: single-threaded
 
 ``` r
-library(DYNAMIC.IV)
+library(NIHR502533)
 
-print(WH_DYNAMIC_IV(n_max = 204,
+print(WH_NIHR502533a(n_max = 204,
                     p_arm0surv = 0.73, p_arm1surv = 0.70,
                     p_arm0tox1 = 0.25, p_arm1tox1 = 0.1,
                     p_arm0tox2 = 0.45, p_arm1tox2 = 0.05, p_LTFU = 0.1, 
                     recrate = 7.5, reps = 100))
-#> DYNAMIC-IV: scenario 1
+#> NIHR502533 cohort A: scenario 1
 #>  - N = 204
 #>  - RFS at 3 years = 73% vs 70%
 #>  - Tox 1 = 25% vs 10%
@@ -48,10 +48,10 @@ print(WH_DYNAMIC_IV(n_max = 204,
 #> [1] 193.38000   0.79000   5.27186
 ```
 
-## Example: chunked parallel
+## Cohort A: chunked parallel
 
 ``` r
-library(DYNAMIC.IV)
+library(NIHR502533)
 library(parallel)
 
 reps <- 1000
@@ -61,7 +61,7 @@ chunk_reps[length(chunk_reps)] <- reps - sum(head(chunk_reps, -1))
 seeds <- seq_along(chunk_reps)
 
 sims <- do.call(rbind, parallel::mclapply(seeds, function(i) {
-  WH_DYNAMIC_IV(n_max = 204,
+  WH_NIHR502533a(n_max = 204,
                 p_arm0surv = 0.73, p_arm1surv = 0.70,
                 p_arm0tox1 = 0.25, p_arm1tox1 = 0.1,
                 p_arm0tox2 = 0.45, p_arm1tox2 = 0.05,
@@ -70,4 +70,13 @@ sims <- do.call(rbind, parallel::mclapply(seeds, function(i) {
 }, mc.cores = n_cores))
 print(colSums(sims * rep(chunk_reps, times = 3))/reps)
 #> [1] 193.328000   0.830000   5.271666
+```
+
+## Cohort B:
+
+``` r
+library(NIHR502533)
+# print(WH_NIHR502533b(n_max = 19, 
+#                p_arm0clear = 0.34, 
+#                p_LTFU = 0.15, recrate = 7.5, reps = 1e5))
 ```
