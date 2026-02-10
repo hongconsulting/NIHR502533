@@ -43,7 +43,6 @@ print(WH_NIHR502533a(n_target = 204,
 #>  - Loss to follow-up = 10% every 5 years
 #>  - Recruitment duration = up to 5 years
 #>  - Max duration = 3 years after the last recruitment, up to 6 years
-#> Loading required package: Rcpp
 #> BuyseTest version 3.2.0
 #>  - Average N = 193.38
 #>  - Power (NTB) = 79.00%
