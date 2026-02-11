@@ -12,8 +12,24 @@ is designed to maximize speed for use in simulation studies. As such,
 input validation is minimal and the user is responsible for ensuring
 valid use.
 
-Note that formal sample size calculations were performed using 100000
-replicates.
+The primary endpoint for cohort A is net treatment benefit (NTB),
+consisting of a generalized pairwise comparison¹ of three prioritized
+binary outcomes. Priority 1 is recurrence-free survival at 3 years,
+obtained by dichotomizing an underlying time-to-event assuming constant
+hazards. Priorities 2 and 3 are binomial toxicity outcomes. The NTB
+estimate is unadjusted for uninformative pairs, with standard errors
+calculated from the closed-form variance of its permutation
+distribution².
+
+Cohort B is a single-arm design with a binary endpoint of ctDNA
+clearance at 1 year, obtained by dichotomizing an underlying
+time-to-event assuming constant hazards. The primary analysis uses an
+exact binomial test comparing the observed number of clearances against
+a pre-specified null proportion.
+
+All *p*-values are two-sided with a significance level of 0.05.
+Recruitment times follow a Poisson process and random loss to follow-up
+occurs at a constant hazard rate.
 
 ## Installation
 
@@ -24,7 +40,12 @@ You can install the development version of NIHR502533 from
 remotes::install_github("hongconsulting/NIHR502533")
 ```
 
-## Example: Cohort A (single-threaded)
+## Examples
+
+Note that formal sample size calculations were performed using 100000
+replicates.
+
+### Cohort A (single-threaded)
 
 ``` r
 library(NIHR502533)
@@ -51,7 +72,7 @@ print(WH_NIHR502533a(n_target = 204,
 #> [1] 193.38000   0.79000   5.27186
 ```
 
-## Example: Cohort A (chunk parallelized)
+### Cohort A (chunk parallelized)
 
 ``` r
 library(NIHR502533)
@@ -75,7 +96,7 @@ print(colSums(sims * rep(chunk_reps, times = 3))/reps)
 #> [1] 193.328000   0.830000   5.271666
 ```
 
-## Example: Cohort B
+### Cohort B
 
 ``` r
 library(NIHR502533)
@@ -94,3 +115,12 @@ print(WH_NIHR502533b(n_target = 19,
 #>  - Average duration = 3.21 years
 #> [1] 18.500900  0.816180  3.212489
 ```
+
+## References
+
+1.  Buyse, M., 2010. Generalized pairwise comparisons of prioritized
+    endpoints in the two-sample problem. *Statistics in Medicine*, 29,
+    pp. 3245–3257.
+2.  Anderson, W.N. and Verbeeck, J., 2023. Exact Permutation and
+    Bootstrap Distribution of Generalized Pairwise Comparisons
+    Statistics. *Mathematics*, 11, p. 1502.

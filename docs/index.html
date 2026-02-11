@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">NIHR502533</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 <p>Sample size simulator for NIHR502533. This version calls the original ‘BuyseTest’ package via the ‘Rcpp’ interface. The surrounding ‘WH’ code is designed to maximize speed for use in simulation studies. As such, input validation is minimal and the user is responsible for ensuring valid use.</p>
-<p>Note that formal sample size calculations were performed using 100000 replicates.</p>
+<p>The primary endpoint for cohort A is net treatment benefit (NTB), consisting of a generalized pairwise comparison¹ of three prioritized binary outcomes. Priority 1 is recurrence-free survival at 3 years, obtained by dichotomizing an underlying time-to-event assuming constant hazards. Priorities 2 and 3 are binomial toxicity outcomes. The NTB estimate is unadjusted for uninformative pairs, with standard errors calculated from the closed-form variance of its permutation distribution².</p>
+<p>Cohort B is a single-arm design with a binary endpoint of ctDNA clearance at 1 year, obtained by dichotomizing an underlying time-to-event assuming constant hazards. The primary analysis uses an exact binomial test comparing the observed number of clearances against a pre-specified null proportion.</p>
+<p>All <em>p</em>-values are two-sided with a significance level of 0.05. Recruitment times follow a Poisson process and random loss to follow-up occurs at a constant hazard rate.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -60,8 +62,12 @@
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"hongconsulting/NIHR502533"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example-cohort-a-single-threaded">Example: Cohort A (single-threaded)<a class="anchor" aria-label="anchor" href="#example-cohort-a-single-threaded"></a>
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
+<p>Note that formal sample size calculations were performed using 100000 replicates.</p>
+<div class="section level3">
+<h3 id="cohort-a-single-threaded">Cohort A (single-threaded)<a class="anchor" aria-label="anchor" href="#cohort-a-single-threaded"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hongconsulting/NIHR502533/" class="external-link">NIHR502533</a></span><span class="op">)</span></span>
 <span></span>
@@ -86,9 +92,9 @@
 <span><span class="co">#&gt;  - Average duration = 5.27 years</span></span>
 <span><span class="co">#&gt; [1] 193.38000   0.79000   5.27186</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="example-cohort-a-chunk-parallelized">Example: Cohort A (chunk parallelized)<a class="anchor" aria-label="anchor" href="#example-cohort-a-chunk-parallelized"></a>
-</h2>
+<div class="section level3">
+<h3 id="cohort-a-chunk-parallelized">Cohort A (chunk parallelized)<a class="anchor" aria-label="anchor" href="#cohort-a-chunk-parallelized"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hongconsulting/NIHR502533/" class="external-link">NIHR502533</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span>
@@ -110,9 +116,9 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">sims</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">chunk_reps</span>, times <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="va">reps</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 193.328000   0.830000   5.271666</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="example-cohort-b">Example: Cohort B<a class="anchor" aria-label="anchor" href="#example-cohort-b"></a>
-</h2>
+<div class="section level3">
+<h3 id="cohort-b">Cohort B<a class="anchor" aria-label="anchor" href="#cohort-b"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hongconsulting/NIHR502533/" class="external-link">NIHR502533</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/WH_NIHR502533b.html">WH_NIHR502533b</a></span><span class="op">(</span>n_target <span class="op">=</span> <span class="fl">19</span>,</span>
@@ -129,6 +135,15 @@
 <span><span class="co">#&gt;  - Power = 81.62%</span></span>
 <span><span class="co">#&gt;  - Average duration = 3.21 years</span></span>
 <span><span class="co">#&gt; [1] 18.500900  0.816180  3.212489</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Buyse, M., 2010. Generalized pairwise comparisons of prioritized endpoints in the two-sample problem. <em>Statistics in Medicine</em>, 29, pp. 3245–3257.</li>
+<li>Anderson, W.N. and Verbeeck, J., 2023. Exact Permutation and Bootstrap Distribution of Generalized Pairwise Comparisons Statistics. <em>Mathematics</em>, 11, p. 1502.</li>
+</ol>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

@@ -1,6 +1,6 @@
 Package: NIHR502533
 Title: NIHR502533
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: 
     person("Wei", "Hong", , "wei.hong@hongconsulting.ai", role = c("aut", "cre"))
 Description: Sample size simulator for NIHR502533​. This version calls the 
