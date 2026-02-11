@@ -15,7 +15,7 @@ valid use.
 The primary endpoint for cohort A is net treatment benefit (NTB),
 consisting of a generalized pairwise comparison¹ of three prioritized
 binary outcomes. Priority 1 is recurrence-free survival at 3 years,
-obtained by dichotomizing an underlying time-to-event assuming constant
+obtained by dichotomizing an underlying time-to-event, assuming constant
 hazards. Priorities 2 and 3 are binomial toxicity outcomes. The NTB
 estimate is unadjusted for uninformative pairs, with standard errors
 calculated from the closed-form variance of its permutation
@@ -23,7 +23,7 @@ distribution².
 
 Cohort B is a single-arm design with a binary endpoint of ctDNA
 clearance at 1 year, obtained by dichotomizing an underlying
-time-to-event assuming constant hazards. The primary analysis uses an
+time-to-event, assuming constant hazards. The primary analysis uses an
 exact binomial test comparing the observed number of clearances against
 a pre-specified null proportion.
 
